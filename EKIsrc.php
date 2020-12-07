@@ -1,4 +1,5 @@
-var CHANNEL_ACCESS_TOKEN = "ここにチャンネルアクセストークンを";
+function myFunction() {
+  var CHANNEL_ACCESS_TOKEN = "ASk / zs9tVto / qnxaLsVtMeW15jLfL0BOQ8gn5g85zjCPnpHAzO2GJFLi0DVVf4AgCEkrwk1nCZXBfqpzFYvYzcphpZdAfWIAZkbSlPtzvomTPpTrJ2e8lnh";
 //webhook_urlから送られた場合
 function doPost(e) {
   var reply_token= JSON.parse(e.postData.contents).events[0].replyToken;
@@ -23,12 +24,15 @@ function doPost(e) {
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
 }
 function search(mes){
-  //エラー処理
   try{
     var response = UrlFetchApp.fetch("https://www.google.com/search?q=" + mes);
   }
+   catch(e){//エラーが出たら
+    return "検索エラー(コンパス 調べたい駅名でお願いします。)";
+  }
 
   //作成したメッセージをFormular_botに返す
-  var meseage = 'こんなのどうでしょう?' + '【' + title + '】' + url;
+  var meseage = '駅の情報はこのようになっています。' + url;
   return meseage;  
+}
 }
